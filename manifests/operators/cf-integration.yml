@@ -43,7 +43,9 @@
     lifecycle: errand
     vm_type: minimal
     stemcell: trusty
-    networks: [{name: default}]
+    networks:
+      - name: default
+        default: [dns, gateway]
     jobs:
     - name: broker-registrar
       release: broker-registrar

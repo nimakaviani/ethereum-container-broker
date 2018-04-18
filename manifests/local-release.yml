@@ -1,0 +1,6 @@
+- type: replace
+  path: /releases/name=cf-containers-broker
+  value:
+    name: cf-containers-broker
+    url: file:///Users/nimakaviani/workspace-git/crypto/ether/cf-containers-broker-boshrelease
+    version: create
