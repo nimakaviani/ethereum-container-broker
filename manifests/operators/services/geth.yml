@@ -1,0 +1,38 @@
+---
+- type: replace
+  path: /instance_groups/name=docker/jobs/name=cf-containers-broker/properties/services/-
+  value:
+    name: 'eth'
+    id: '24736f4a-72b8-4298-96f7-b48c4045ddfd'
+    description: 'Ethereum Geth Node'
+    bindable: true
+    tags:
+      - 'eth'
+      - 'geth'
+    metadata:
+      displayName: 'Geth 1.8'
+      longDescription: 'Geth Node'
+      providerDisplayName: 'Cloud Foundry Community'
+    dashboard_client:
+      id: docker-broker-eth
+      secret: ((docker-broker-eth-secret))
+    plans:
+    - id: 'd42fc3cc-1341-4aa3-866e-01bc5243dc2e'
+      name: 'free'
+      container:
+        backend: 'docker'
+        image: 'nimak/eth-solc'
+      description: 'Free Trial'
+      metadata:
+        costs:
+          - amount:
+              usd: 0.0
+            unit: 'MONTHLY'
+        bullets:
+          - 'Dedicated Geth Node'
+
+- type: replace
+  path: /variables/-
+  value:
+    name: docker-broker-eth-secret
+    type: password
