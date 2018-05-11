@@ -21,7 +21,7 @@
       name: 'free'
       container:
         backend: 'docker'
-        image: 'nimak/eth-solc'
+        image: 'nimak/eth-dev'
       description: 'Free Trial'
       metadata:
         costs:
