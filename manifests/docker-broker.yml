@@ -59,7 +59,7 @@ instance_groups:
       username: broker
       password: ((docker-broker-password))
       cookie_secret: ((docker-broker-cookie-secret))
-      max_containers: 20
+      max_containers: 100
       fetch_images: true
       services: []
 
@@ -131,6 +131,4 @@ releases:
   url: https://github.com/cloudfoundry-community/docker-boshrelease/releases/download/v31.0.0/docker-31.0.0.tgz
   sha1: 5d7e9052297b26ad4337b4d539ba702cccb20080
 - name: cf-containers-broker
-  version: 1.0.1
-  url: https://github.com/cloudfoundry-community/cf-containers-broker-boshrelease/releases/download/v1.0.1/cf-containers-broker-1.0.1.tgz
-  sha1: e2a2a64b0981d410b285a42b5c350762e7363bba
+  version: latest

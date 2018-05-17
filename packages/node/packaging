@@ -1,0 +1,16 @@
+set -e
+set -u
+
+echo "Extracting node tarball"
+
+tar -xvf ${BOSH_COMPILE_TARGET}/node/node.tar.gz -C ${BOSH_COMPILE_TARGET}/
+cd ${BOSH_COMPILE_TARGET}/node-v8.11.1
+
+mkdir -p ${BOSH_COMPILE_TARGET}/bin
+
+# Set installation to compile target location so both npm and node can be installed
+./configure --prefix=${BOSH_COMPILE_TARGET}/bin
+make install
+
+cp -ra ${BOSH_COMPILE_TARGET}/bin/* ${BOSH_INSTALL_TARGET}/
+cp -ra ${BOSH_COMPILE_TARGET}/node/node_modules ${BOSH_INSTALL_TARGET}/

@@ -2,5 +2,5 @@
   path: /releases/name=cf-containers-broker
   value:
     name: cf-containers-broker
-    url: file:///Users/nimakaviani/workspace-git/crypto/ether/cf-containers-broker-boshrelease
+    url: file:///Users/Repakula/workspace/container-broker
     version: create

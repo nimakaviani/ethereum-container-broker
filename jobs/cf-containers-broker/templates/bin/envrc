@@ -1,0 +1,3 @@
+#!/bin/bash
+
+export PATH=$PATH:/var/vcap/packages/node/bin

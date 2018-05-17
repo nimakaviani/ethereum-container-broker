@@ -2,11 +2,13 @@
 name: cf-containers-broker
 
 packages:
+- node
 - ruby
 - cf-containers-broker
 
 templates:
   bin/ctl.sh: bin/ctl.sh
+  bin/envrc: bin/envrc
   config/bpm.yml: config/bpm.yml
   config/settings.yml: config/settings.yml
   config/unicorn.conf.rb: config/unicorn.conf.rb
@@ -94,3 +96,6 @@ properties:
     description: "HTTPS proxy"
   env.no_proxy:
     description: "List of comma-separated hosts to skip connecting to the proxy"
+  env.node_path:
+    description: "Location of node_modules dir"
+    default: "/var/vcap/packages/node/node_modules"

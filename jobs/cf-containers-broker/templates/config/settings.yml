@@ -20,3 +20,4 @@ production:
   log_path: '/var/vcap/sys/log/cf-containers-broker/cf-containers-broker.log'
 
   services: <%= JSON.pretty_generate(p('services')) %>
+  node_path: <%= p('env.node_path') %>
