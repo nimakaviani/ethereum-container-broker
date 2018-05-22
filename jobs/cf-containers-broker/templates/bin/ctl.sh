@@ -5,6 +5,8 @@ set -eu
 source /var/vcap/packages/ruby-2*/bosh/runtime.env
 
 export PATH=$PATH:/var/vcap/packages/cf-containers-broker/bin
+export PATH=$PATH:/var/vcap/packages/node/bin
+export NODE_PATH=<%= p('env.node_path') %>
 
 export RAILS_ENV=production
 export BUNDLE_GEMFILE=/var/vcap/packages/cf-containers-broker/Gemfile

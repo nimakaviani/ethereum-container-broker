@@ -2,6 +2,7 @@
 name: cf-containers-broker
 
 packages:
+- node
 - ruby-2.4-r4
 - cf-containers-broker
 
@@ -94,3 +95,6 @@ properties:
     description: "HTTPS proxy"
   env.no_proxy:
     description: "List of comma-separated hosts to skip connecting to the proxy"
+  env.node_path:
+    description: "path to the node modules"
+    default: "/var/vcap/packages/node/node_modules"
