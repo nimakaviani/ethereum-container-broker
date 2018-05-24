@@ -1,0 +1,16 @@
+set -e
+set -u
+
+echo "Installing Node"
+curl https://deb.nodesource.com/setup_9.x | bash
+apt-get install -y nodejs
+mkdir -p ${BOSH_INSTALL_TARGET}/bin
+cp /usr/bin/node ${BOSH_INSTALL_TARGET}/bin/node
+
+apt-get install -y git
+
+npm install --production --quiet cli-flags
+npm install --production --quiet web3
+npm install --production --quiet solc
+
+cp -ra ${BOSH_COMPILE_TARGET}/node_modules ${BOSH_INSTALL_TARGET}/
