@@ -6,6 +6,7 @@ source /var/vcap/packages/ruby-2*/bosh/runtime.env
 
 export PATH=$PATH:/var/vcap/packages/cf-containers-broker/bin
 export PATH=$PATH:/var/vcap/packages/node/bin
+export PATH=$PATH:/var/vcap/packages/solc/bin
 export NODE_PATH=<%= p('env.node_path') %>
 
 export RAILS_ENV=production
