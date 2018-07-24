@@ -11,6 +11,5 @@ apt-get install -y git
 
 npm install --production --quiet cli-flags@2.0.7
 npm install --production --quiet web3@1.0.0-beta.34
-npm install --production --quiet solc@0.4.22
 
 cp -ra ${BOSH_COMPILE_TARGET}/node_modules ${BOSH_INSTALL_TARGET}/
