@@ -1,77 +1,25 @@
-# BOSH release for cf-containers-broker
-
-This BOSH release and deployment manifest deploy a cluster of cf-containers-broker.
-
-## Dynamically provision containers via Open Service Broker API
-
-This BOSH release includes a `cf-containers-broker` job provides an API that can provision new Docker containers running PostgreSQL/MySQL/Redis/whatever on demand. The API is [Open Service Broker API](https://www.openservicebrokerapi.org/) compatible, which means you can register it with Cloud Foundry, Kubernetes and more.
-
-Allow users to dynamically provision persistent services, running in Docker containers, using the `cf` Cloud Foundry CLI:
-
-![cf-create-service-ctop](manifests/broker/cf-create-service-ctop.gif)
-
-The example usage is MySQL 5.6: each provisioned service is running inside a dedicated Docker container. The service provides credentials that look like:
-
-```
-$ cf create-service mysql56 free mysql1
-$ cf create-service-key mysql1 mysql1-key
-$ cf service-key mysql1 mysql1-key
-{
- "dbname": "wcfh1voergicdt9n",
- "hostname": "10.244.33.0",
- "password": "mlasvy5fpq9zx8mb",
- "port": "32770",
- "ports": {
-  "3306/tcp": "32770"
- },
- "uri": "mysql://duawbyody1ashrgr:mlasvy5fpq9zx8mb@10.244.33.0:32770/wcfh1voergicdt9n",
- "username": "duawbyody1ashrgr"
-}
-```
-
-See [docker-broker-deployment](https://github.com/cloudfoundry-community/docker-broker-deployment) for a dedicated repo that is all about deploying an Open Service Broker API compatible cluster that runs your favourite services inside on-demand Docker containers.
-
-This repo is similar/same as `manifests` folder, which is used for the CI test harness.
-
-## Usage
-
-This repository includes base manifests and operator files. They can be used for initial deployments and subsequently used for updating your deployments:
-
-```
-export BOSH_ENVIRONMENT=<bosh-alias>
-export BOSH_DEPLOYMENT=docker-broker
-git clone https://github.com/cloudfoundry-community/cf-containers-broker-boshrelease.git
-bosh deploy cf-containers-broker-boshrelease/manifests/cf-containers-broker.yml \
-  -o cf-containers-broker-boshrelease/manifests/operators/services/redis32.yml \
-  -o cf-containers-broker-boshrelease/manifests/operators/services/postgresql96.yml \
-  -o cf-containers-broker-boshrelease/manifests/operators/services/mysql56.yml
-
-bosh run-errand sanity-test
-```
-
-If your BOSH does not have Credhub/Config Server, then remember `--vars-store` to allow generation of passwords and certificates.
-
-### Update
-
-When new versions of `redis-boshrelease` are released the `manifests/cf-containers-broker.yml` file will be updated. This means you can easily `git pull` and `bosh deploy` to upgrade.
-
-```
-export BOSH_ENVIRONMENT=<bosh-alias>
-export BOSH_DEPLOYMENT=docker-broker
-cd cf-containers-broker-boshrelease
-git pull
-cd -
-bosh deploy cf-containers-broker-boshrelease/manifests/cf-containers-broker.yml \
-  -o cf-containers-broker-boshrelease/manifests/operators/services/redis32.yml \
-  -o cf-containers-broker-boshrelease/manifests/operators/services/postgresql96.yml \
-  -o cf-containers-broker-boshrelease/manifests/operators/services/mysql56.yml
-
-bosh run-errand sanity-test
-```
+# BOSH release for ethereum-containers-broker
 
 
-## Status of Docker Broker images
+## Introduction
 
-This project was original created many years ago, and overtime some of the community Docker images have been maintained; and some have not. All of them have been retained in the `manifests/broker/services` as examples. If you are excited by one of them but it is a very old version, create an Issue, and we'll help you upgrade it.
+Project BlockHead takes advantage of the Open Service Broker API specification to build a service broker layer placed between the Web application and the blockchain network. 
+Doing so, the broker controls management of the smart contract by automating creation and deployment of smart contracts and then exposing the required set of information to the Web application.
 
-See https://github.com/cloudfoundry-community/cf-containers-broker for more information about how services are configured, how to pass properties into Docker images, how credentials are randomly generated, etc.
+The first version of the broker is built on top of the [Container Service Broker](https://github.com/cloudfoundry-community/cf-containers-broker), a Cloud Foundry community project. By utilizing the container service broker, blockchain nodes can be run inside an isolated Docker container and operate independently when deploying and binding smart contracts.
+
+We utilize the broker to deploy stateful Ethereum nodes on demand. Each step in provisioning and binding or unbinding and deprovisioning are then modified to deliver on creation / deletion of smart contracts or nodes. Picture below provides an overall architecture for how the Blockhead service broker provisions Ethereum nodes and integrates with the Cloud Foundry applications:o
+
+![Broker Architecture]
+(https://cdn-images-1.medium.com/max/2000/1*AovE-c2jJyQ_czkQqUFqAQ.png)
+
+For details on the broker, read our blog post on Hacker Noon, [HERE](https://hackernoon.com/project-blockhead-an-ethereum-smart-contract-service-broker-for-kubernetes-and-cloud-foundry-88390a3ac63f).
+
+## Deploy the Broker
+
+Current version of the broker requires deployment alongside Cloud Foundry. For instructions on how to deploy Cloud Foundry refer to the [deployment docs](https://docs.cloudfoundry.org/deploying/index.html)
+
+With a running Cloud Foundry deployment, run the `deploy.sh` script embedded in this repository. 
+However, prior to doing so you need to modify `manifests/local-release.yml` to point to the location where you have cloned this repo on your workstation.
+
+Also you may wish to change `--vers-file` to `--vars-store` in the `deploy.sh` script for it to generate new credentials first time around, when you run the script.
