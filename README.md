@@ -1,7 +1,7 @@
 **NOTICE**
 Project Blockhead has been accepted as a Cloud Foundry incubator project and a rewrite of the project has been happening under [cloudfoundry-incubator/blockhead](https://github.com/cloudfoundry-incubator/blockhead).
 
-This repository will be deprecated soon and in favor of the new work.
+This repository will be deprecated soon and in favor of the new work that is happening.
 
 # BOSH release for ethereum-containers-broker
 
@@ -28,7 +28,7 @@ However, prior to doing so you need to modify `manifests/local-release.yml` to p
 Also you may wish to change `--vers-file` to `--vars-store` in the `deploy.sh` script for it to generate new credentials first time around, when you run the script.
 
 
-## Update the Service
+## Update the Ethereum Service
 
 In order to update / alter the service Ethereum node service offered by the broker, you need to modify `manifests/operators/services/geth.yml` shown below:
 
