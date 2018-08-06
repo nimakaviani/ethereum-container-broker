@@ -1,5 +1,9 @@
-# BOSH release for ethereum-containers-broker
+**NOTICE**
+Project Blockhead has been accepted as a Cloud Foundry incubator project and a rewrite of the project has been happening under https://github.com/cloudfoundry-incubator/blockhead.
 
+This repository will be deprecated soon and in favor of the new work.
+
+# BOSH release for ethereum-containers-broker
 
 ## Introduction
 
@@ -10,14 +14,13 @@ The first version of the broker is built on top of the [Container Service Broker
 
 We utilize the broker to deploy stateful Ethereum nodes on demand. Each step in provisioning and binding or unbinding and deprovisioning are then modified to deliver on creation / deletion of smart contracts or nodes. Picture below provides an overall architecture for how the Blockhead service broker provisions Ethereum nodes and integrates with the Cloud Foundry applications:o
 
-![Broker Architecture]
-(https://cdn-images-1.medium.com/max/2000/1*AovE-c2jJyQ_czkQqUFqAQ.png)
+![Broker Architecture](https://cdn-images-1.medium.com/max/2000/1*AovE-c2jJyQ_czkQqUFqAQ.png)
 
 For details on the broker, read our blog post on Hacker Noon, [HERE](https://hackernoon.com/project-blockhead-an-ethereum-smart-contract-service-broker-for-kubernetes-and-cloud-foundry-88390a3ac63f).
 
 ## Deploy the Broker
 
-Current version of the broker requires deployment alongside Cloud Foundry. For instructions on how to deploy Cloud Foundry refer to the [deployment docs](https://docs.cloudfoundry.org/deploying/index.html)
+Current version of the broker requires deployment alongside Cloud Foundry. For instructions on how to deploy Cloud Foundry refer to the [deployment docs](https://docs.cloudfoundry.org/deploying/index.html).
 
 With a running Cloud Foundry deployment, run the `deploy.sh` script embedded in this repository. 
 However, prior to doing so you need to modify `manifests/local-release.yml` to point to the location where you have cloned this repo on your workstation.
