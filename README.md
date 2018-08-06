@@ -1,5 +1,5 @@
 **NOTICE**
-Project Blockhead has been accepted as a Cloud Foundry incubator project and a rewrite of the project has been happening under https://github.com/cloudfoundry-incubator/blockhead.
+Project Blockhead has been accepted as a Cloud Foundry incubator project and a rewrite of the project has been happening under [cloudfoundry-incubator/blockhead](https://github.com/cloudfoundry-incubator/blockhead).
 
 This repository will be deprecated soon and in favor of the new work.
 
@@ -26,3 +26,49 @@ With a running Cloud Foundry deployment, run the `deploy.sh` script embedded in 
 However, prior to doing so you need to modify `manifests/local-release.yml` to point to the location where you have cloned this repo on your workstation.
 
 Also you may wish to change `--vers-file` to `--vars-store` in the `deploy.sh` script for it to generate new credentials first time around, when you run the script.
+
+
+## Update the Service
+
+In order to update / alter the service Ethereum node service offered by the broker, you need to modify `manifests/operators/services/geth.yml` shown below:
+
+```
+---
+- type: replace
+  path: /instance_groups/name=docker/jobs/name=cf-containers-broker/properties/services/-
+  value:
+    name: 'eth'
+    id: '24736f4a-72b8-4298-96f7-b48c4045ddfd'
+    description: 'Ethereum Geth Node'
+    bindable: true
+    tags:
+      - 'eth'
+      - 'geth'
+    metadata:
+      displayName: 'Geth 1.8'
+      longDescription: 'Geth Node'
+      providerDisplayName: 'Cloud Foundry Community'
+    dashboard_client:
+      id: docker-broker-eth
+      secret: ((docker-broker-eth-secret))
+    plans:
+    - id: 'd42fc3cc-1341-4aa3-866e-01bc5243dc2e'
+      name: 'free'
+      container:
+        backend: 'docker'
+        image: 'nimak/eth-dev'
+      description: 'Free Trial'
+      metadata:
+        costs:
+          - amount:
+              usd: 0.0
+            unit: 'MONTHLY'
+        bullets:
+          - 'Dedicated Geth Node'
+
+- type: replace
+  path: /variables/-
+  value:
+    name: docker-broker-eth-secret
+    type: password
+```
